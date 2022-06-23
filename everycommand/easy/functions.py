@@ -14,7 +14,7 @@ helloWorld()
 def printTwice(word):
 #word will be the variable that holds the information
 #it has been given before
-    for i in range(2):
+    for _ in range(2):
         print(word)
         #prints twice the information
 
@@ -26,7 +26,7 @@ printTwice("twice myself")
 #function.
 
 def printAsManyTimes(content, number):
-    for i in range(number):
+    for _ in range(number):
         print(content)
 
 #the syntax isnt much different

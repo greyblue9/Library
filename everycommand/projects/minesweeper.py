@@ -69,7 +69,7 @@ def FieldGeneration():
         for fieldy in range(fieldsize):
             #chooses either a mine or a safe field
             singleField = random.choice(difficulty[0])
-            
+
             #Prevents the selector to escape the field
             if fieldx < 1 or fieldx > size - 2 or fieldy < 1 or fieldy > size - 2:
                 singleField = 0
@@ -117,14 +117,17 @@ def Scanfield(coords):
             place1 = coords[0]+first[each]
             place2 = coords[1]+second[each]
             #In the grid
-            if(place1 > 0 and place1 < size - 1 and place2 > 0 and place2 < size - 1):
-            #Makes that only one specific position can get saved
-                if [place1, place2] not in savedPositions:
+            if (
+                place1 > 0
+                and place1 < size - 1
+                and place2 > 0
+                and place2 < size - 1
+            ) and [place1, place2] not in savedPositions:
             #saves position
-                    savedPositions.append([place1, place2])
-            #reveals and opens all the cells
+                savedPositions.append([place1, place2])
+                    #reveals and opens all the cells
         reveal([coords[0], coords[1]])
-    
+
     #_______________________________________________________
     #switch stops massive recursions and allows for controlled executions
     if switch == True:
@@ -153,7 +156,9 @@ def resetField():
 def end(stateOfGame):
     global size
     Label(window, width=4).grid(row = size + 2, column = (size//2)-5, columnspan = 10)
-    Label(window, text="you " + stateOfGame).grid(row = size + 3, column = (size//2)-5, columnspan = 10)
+    Label(window, text=f"you {stateOfGame}").grid(
+        row=size + 3, column=(size // 2) - 5, columnspan=10
+    )
 
 #winning logic
 def win():
@@ -276,7 +281,6 @@ def change(specifications):
     global size
     global difficulty
     global numb
-    diff = ["Easy", "Normal", "Hard"]
     if specifications[1] == "D":
         if specifications[0] == "L":
             numb -= 1
@@ -286,6 +290,7 @@ def change(specifications):
             numb += 1
             if numb == 3:
                 numb -= 3
+        diff = ["Easy", "Normal", "Hard"]
         difficultyLabel.configure(text=diff[numb])
     else:
         if specifications[0] == "L":

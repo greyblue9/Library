@@ -27,9 +27,12 @@ def runWebsite():
 def test():
     testvar = str(random.randint(1, 100))
     #heres something you can do with python on the browser directly
-    return("<h1>this " + testvar + """ a test</h1>
+    return (
+        f"<h1>this {testvar}"
+        + """ a test</h1>
 
-<a href="/another">the other</a>""")#hyperlink to the other page
+<a href="/another">the other</a>"""
+    )
     
 #add an app.route(Link) to create another page
 @app.route('/another')

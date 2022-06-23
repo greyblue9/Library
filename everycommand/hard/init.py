@@ -9,7 +9,7 @@ class calculatePi():
     #__init__ is the first function to work when a class is created
     #__init__ doesn't neet to be told to execute, it executes automaticly -
     #at the start when the class is created.
-    def __init__(Empty):
+    def __init__(self):
         #creates all variables that can be used
         global Pi, Augmentor, Exchanger
         Pi = 1
@@ -20,16 +20,16 @@ class calculatePi():
         #gets closer by 1000 steps every time its executed
 
                         # \/ i set the parameter being anything really. but whitout it whouldn't work
-    def doTheCalculation(Empty):
+    def doTheCalculation(self):
         global Pi, Augmentor, Exchanger
-        for each in range(1000):
+        for _ in range(1000):
             if Exchanger:
                 Pi -= 1 / Augmentor
             else:
                 Pi += 1 / Augmentor
             Exchanger = not Exchanger
             Augmentor += 2
-            
+
         return(Pi * 4)
 
 #VERY IMPORTANT NOTE:

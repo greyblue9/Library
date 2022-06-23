@@ -37,9 +37,20 @@ def counter():
         hours = hours - (days * 24)
         years = days//365
         days = days - (years * 365)
-        
+
         #changes label every second
-        countdown = str("years: " + str(int(years)) + "\ndays: "+ str(int(days)) + "\nhours: " + str(int(hours)) + "\nminutes: "+ str(int(minutes)) + "\nseconds: "+ str(int(seconds)))
+        countdown = str(
+            f"years: {int(years)}"
+            + "\ndays: "
+            + str(int(days))
+            + "\nhours: "
+            + str(int(hours))
+            + "\nminutes: "
+            + str(int(minutes))
+            + "\nseconds: "
+            + str(int(seconds))
+        )
+
         TimeRemain.configure(text=countdown)
         time.sleep(1)
 

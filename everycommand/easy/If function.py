@@ -1,6 +1,5 @@
 #The if command only works with booleans.
-if True:
-    print("the true is on")
+print("the true is on")
 
 #but the true can be archieved differently
 print(1 < 2, " <= this is true")
@@ -47,7 +46,7 @@ else:
 ######################################
 
 #true if same value
-print(2 == 2, "<= same value '=='")
+print(True, "<= same value '=='")
 #true if only bigger
 print(2 > 1, "<= bigger '>'")
 #true if bigger or same
@@ -67,17 +66,13 @@ print(1 != 2, "<= not the same '!='")
 print(1 is 1, "we used the is to make a True 'works like =='")
 
 #we can also use other words like "and" and "or"
-print(1 == 1 and 2 == 2, "which is using an and")
+print(True and True, "which is using an and")
 print(1 == 2 or 2 > 1, "which is an or")
 
 #of course theres another way you can write the and as well to make things shorter
 if 1 < 2 == 2 < 3:
     print(2 + 2 == 4 < 5 < 6, "the long calculation part")
-#you can mix multiples conditions into one long condition
-
-#funny code you can make
-if True is not False:
-    print(False is not True, "<= false is not true")
+print(not False, "<= false is not true")
 #reflects to \/
 #if True != False:
     #print(True != False)

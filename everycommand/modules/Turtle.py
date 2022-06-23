@@ -45,7 +45,7 @@ turtle.begin_fill()
 
 #### should make a cube
 def cube():
-    for i in range(4):
+    for _ in range(4):
         turtle.left(90)
         turtle.forward(20)
         

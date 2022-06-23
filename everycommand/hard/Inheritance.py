@@ -1,10 +1,10 @@
 class Parent:
     #just a class that will only be copied somewhat
-    def __init__(empty, userText):
-        empty.message = userText
+    def __init__(self, userText):
+        self.message = userText
 
-    def printmessage(UserMessage):
-        print(UserMessage.message)
+    def printmessage(self):
+        print(self.message)
 
 
 
