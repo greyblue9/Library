@@ -43,26 +43,12 @@
 
 
 #we have to put the file in a variable
-File = open("newFile.txt", "w")
-                           #/\
-                           #this is an option
-                           #how it works is shown on top
+with open("newFile.txt", "w") as File:
+    #now the file is Writable, so we use:
+    File.write("hello world")
+with open("newFile.txt", "r") as ReadFile:
+    print(ReadFile.read())
 
-#now the file is Writable, so we use:
-File.write("hello world")
-#also works on append
-
-#to save the file you need to close it
-File.close()
-
-##############################################################
-#now to read it
-
-ReadFile = open("newFile.txt", "r")
-                               #notice the r
-print(ReadFile.read())
-
-ReadFile.close()
 #/\
 #theres another way to write into files/read them.
 
@@ -72,7 +58,7 @@ with open("newFile.txt") as file:
     print(file.read())
 
 #the other with the append works like this:
-    
+
 with open("newFile.txt", "a") as file:
     file.write(" - bye world")
 

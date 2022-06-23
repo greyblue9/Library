@@ -17,7 +17,7 @@ import os
 install = False# before.
 ################
 
-if install == True:
+if install:
     os.system("python -m pip install auto-py-to-exe")
 #this code installs the module on your computer
 

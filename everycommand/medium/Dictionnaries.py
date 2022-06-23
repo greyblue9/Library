@@ -33,7 +33,7 @@ print(drinksNpeoples, "empty")
 drinksNpeoples["Jerome"] = "Rivella"
 
 #theres another way to add objects to it
-drinksNpeoples.update({"Jessica": "beer"})
+drinksNpeoples["Jessica"] = "beer"
 #_____________________________________________
 
 print(drinksNpeoples, "new added peoples")

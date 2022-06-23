@@ -7,8 +7,6 @@ def CreateInterface():
 #_________________________________________________Buttons_________________________________________________________#
     global allElements
     global window
-    Placement = 0
-    
     saveButton = Button(window, text="save file", command=save, height = 5, width = 20, bg = "SkyBlue")
     saveButton.grid(row = 0, column = 0)
     allElements.append(saveButton)
@@ -33,12 +31,11 @@ def CreateInterface():
     prettyMargin.grid(row = 1, column = 4)
     allElements.append(prettyMargin)
 
-    for eachElement in toDoContent:
+    for Placement, eachElement in enumerate(toDoContent):
         Done = Button(window, text=eachElement, height = 5, width = 20)
         Done.grid(row = (int(Placement//5)) + 2, column = Placement - (Placement//5)*5)
         Done.configure(command=lambda eachElement = eachElement, Done=Done: delete(eachElement, Done))
         allElements.append(Done)
-        Placement += 1
 
 def reloadPage():
     global allElements
@@ -66,15 +63,9 @@ def delete(Stuff, visualButton):
 
 with open("todo.txt", "r") as data:
     content = data.read()
-    if len(content) == 0:
-        toDoContent = ""
-    else:
-        toDoContent = content.split("\n")
-
-
-
+    toDoContent = "" if len(content) == 0 else content.split("\n")
 allElements = []
-        
+
 window = Tk()
 
 

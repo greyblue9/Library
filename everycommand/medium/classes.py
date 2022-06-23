@@ -37,7 +37,7 @@ class hotel():
     pass
 
 def nameNRoom(number):
-    return(number.roomNumber + " : " + number.name)
+    return f"{number.roomNumber} : {number.name}"
                                                 # /\
 #now we make a object ID containing a name as there
 ID12 = hotel()

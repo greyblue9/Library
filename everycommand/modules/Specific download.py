@@ -15,4 +15,4 @@ path = str("C:\\Users\\" + str(getpass.getuser()) + "\AppData\Local\Programs\Pyt
 import subprocess
 
 #to make it easier heres the code part to open the place.
-subprocess.Popen(r'explorer /select, ' + path + '')
+subprocess.Popen(f'explorer /select, {path}')

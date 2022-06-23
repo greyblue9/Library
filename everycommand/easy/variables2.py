@@ -48,7 +48,7 @@ Tuple = ("text", 20, 3.3, True)
 
 #the set is an other type of list that can be changed, except sets and frozensets can only
 #contain one of any value.
-Set = ({"text", 20, 3.3, True, 20, 3.3, "i am a set"})
+Set = {"text", True, 20, 3.3, "i am a set"}
 #so we got multiples times the same value in the set
 
 #adding stuff to a set needs to be in a list since it whould otherwise eat every letter.

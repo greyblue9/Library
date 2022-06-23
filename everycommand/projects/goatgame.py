@@ -78,8 +78,14 @@ def creategame():
     resetParameters = []
     #generates all 3 buttons
     for i in range(3):
-        Clickme = Button(window, text="door nr:" + str(i + 1), command=lambda i = i:firstpart(i),
-                         height = 10, width=20)
+        Clickme = Button(
+            window,
+            text=f"door nr:{str(i + 1)}",
+            command=lambda i=i: firstpart(i),
+            height=10,
+            width=20,
+        )
+
         Clickme.grid(row=1, column=i)
         doorList.append(Clickme)
         resetParameters.append(Clickme)

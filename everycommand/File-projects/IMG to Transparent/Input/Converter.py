@@ -14,44 +14,43 @@ path = pathlib.Path(__file__).parent.absolute()
 
 def convertImage(pathway):
     if pathway[-3:] == ".py":
-        pass
-    else:
-        print(pathway)
-        img = Image.open(pathway)
-        img = img.convert("RGBA")
+        return
+    print(pathway)
+    img = Image.open(pathway)
+    img = img.convert("RGBA")
 
-        width, height = Image.open(pathway).size
-        
-      
-        datas = img.getdata()
-    
-        newData = []
-
-        #Filter strenght
-        Red = 240
-        Green = 240
-        Blue = 240
-
-        print(len(datas)/width)
-
-        lineStart = False
-
-        count = -1
-          
-        for row in range(width):
-            for column in range(height):
-                count += 1
-                item = datas[count]
-                if item[0] > Red and item[1] > Green and item[2] > Blue:
-                    newData.append((255, 255, 255, 0))
-                else:
-                    newData.append(item)
+    width, height = Image.open(pathway).size
 
 
-      
-        img.putdata(newData)
-        img.save(os.path.join(output, file), "PNG")
-        print("Successful")
+    datas = img.getdata()
+
+    newData = []
+
+    #Filter strenght
+    Red = 240
+    Green = 240
+    Blue = 240
+
+    print(len(datas)/width)
+
+    lineStart = False
+
+    count = -1
+
+    for _ in range(width):
+        for _ in range(height):
+            count += 1
+            item = datas[count]
+            if item[0] > Red and item[1] > Green and item[2] > Blue:
+                newData.append((255, 255, 255, 0))
+            else:
+                newData.append(item)
+
+
+
+    img.putdata(newData)
+    img.save(os.path.join(output, file), "PNG")
+    print("Successful")
 
 
 

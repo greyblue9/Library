@@ -68,14 +68,12 @@ filename = ""
 def readFile(path, name):
     reader = Tk()
 
-    contentOfFile = open(path + "\\" + name, "r")
-    fileText = contentOfFile.read()
-    contentOfFile.close()
-
+    with open(path + "\\" + name, "r") as contentOfFile:
+        fileText = contentOfFile.read()
     contentContainer = Text(reader)
     contentContainer.insert('1.0', fileText)
     contentContainer.grid()
-    
+
     contentContainer.configure(state=DISABLED)
 
     reader.title(name)
@@ -118,11 +116,11 @@ def switchedit(switch):
     if editVal == False:
         editVal = True
         showCode['state'] = NORMAL
-        editClick.configure(text="Edit :" + str(editVal))
+        editClick.configure(text=f"Edit :{editVal}")
     elif editVal == True:
         editVal = False
         showCode['state'] = DISABLED
-        editClick.configure(text="Edit :" + str(editVal))
+        editClick.configure(text=f"Edit :{editVal}")
 
 #android use
 def android(pathfile):
@@ -137,7 +135,7 @@ def android(pathfile):
         for line in csv.reader(f):
             try:
                 allcontent = ",".join(line)
-                readedcontent += (str(allcontent) + "\n")
+                readedcontent += allcontent + "\n"
             except:
                 readedcontent += "\n"
         content = (readedcontent)
@@ -146,9 +144,14 @@ def android(pathfile):
     showCode.insert('1.0', content)
     showCode['state'] = DISABLED
     editVal = False
-    editClick = Button(newWindow, text="Edit :" + str(editVal),
-                       command=lambda showCode = showCode: switchedit(showCode),
-                       height = 5, width = 15)
+    editClick = Button(
+        newWindow,
+        text=f"Edit :{editVal}",
+        command=lambda showCode=showCode: switchedit(showCode),
+        height=5,
+        width=15,
+    )
+
     editClick.grid(row=2, column=0)
     copytoClip = Button(newWindow, text="copy whole text\n to keyboard",
                         command=lambda newWindow = newWindow,
@@ -172,7 +175,7 @@ def buildpath(filename, difficulty):
     global openname
     openname = filename
     pathtofiles = ""
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         droppedFile = os.getcwd()
         lines = "\\"
     elif sys.platform == "linux":
@@ -180,22 +183,22 @@ def buildpath(filename, difficulty):
         lines = "/"
     if "everycommand" not in droppedFile:
         droppedFile += "\\everycommand"
-    if difficulty == "easy":
-        pathtofiles += "easy" + lines + filename
-    elif difficulty == "medium":
-        pathtofiles += "medium" + lines + filename
-    elif difficulty == "hard":
-        pathtofiles += "hard" + lines + filename
-    elif difficulty == "modules":
-        pathtofiles += "modules" + lines + filename
-    elif difficulty == "projects":
-        pathtofiles += "projects" + lines + filename
-    elif difficulty == "Bonus codes":
-        pathtofiles += "Bonus" + lines + filename
+    if difficulty == "Bonus codes":
+        pathtofiles += f"Bonus{lines}{filename}"
 
+    elif difficulty == "easy":
+        pathtofiles += f"easy{lines}{filename}"
+    elif difficulty == "hard":
+        pathtofiles += f"hard{lines}{filename}"
+    elif difficulty == "medium":
+        pathtofiles += f"medium{lines}{filename}"
+    elif difficulty == "modules":
+        pathtofiles += f"modules{lines}{filename}"
+    elif difficulty == "projects":
+        pathtofiles += f"projects{lines}{filename}"
     pathtofiles = str(droppedFile) + lines + pathtofiles
     #for other platforms \/
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         openpython(pathtofiles)
     elif sys.platform == "linux":
         android(pathtofiles)
@@ -209,7 +212,7 @@ def openpython(path):
     global filename
     if len(filename) > 0:
         subprocess.call([filename, path])
-    else:    
+    else:
         exists = False
         for i in reversed(range(11)):
             try:
@@ -226,27 +229,36 @@ def openpython(path):
                     break
                 except:
                     pass
-            if exists == False:
-                for i in reversed(range(11)):
-                    pathtopython = (str("C:\\Users\\" + getpass.getuser() + "\AppData\Local\Programs\Python\Python3") + str(i) + str("\Lib\idlelib\idle.bat"))
-                    try:
-                        subprocess.call([pathtopython, path])
-                        exists = True
-                        break
-                    except:
-                        pass
-                if exists == False:
-                    information = Tk()
-                    InfoText = Label(information, text="Choose the Idle.bat\n(python executer)\nfile to start the program over the\nmanually set path")
-                    Infotext.configure(font = ("Lucida Console", 16))
-                    InfoText.grid()
-                    filename = filedialog.askopenfilename(initialdir = "/",
-                                                          title = "Idle.bat",
-                                                          filetypes = (("Text files", "*.bat*"), ("all files","*.*")))
+        if exists == False:
+            for i in reversed(range(11)):
+                pathtopython = (
+                    str(
+                        "C:\\Users\\"
+                        + getpass.getuser()
+                        + "\AppData\Local\Programs\Python\Python3"
+                    )
+                    + str(i)
+                    + "\Lib\idlelib\idle.bat"
+                )
+
+                try:
+                    subprocess.call([pathtopython, path])
                     exists = True
-                    subprocess.call([filename, path])
-                    information.geometry("400x100")
-                    information.mainloop()
+                    break
+                except:
+                    pass
+        if exists == False:
+            information = Tk()
+            InfoText = Label(information, text="Choose the Idle.bat\n(python executer)\nfile to start the program over the\nmanually set path")
+            Infotext.configure(font = ("Lucida Console", 16))
+            InfoText.grid()
+            filename = filedialog.askopenfilename(initialdir = "/",
+                                                  title = "Idle.bat",
+                                                  filetypes = (("Text files", "*.bat*"), ("all files","*.*")))
+            exists = True
+            subprocess.call([filename, path])
+            information.geometry("400x100")
+            information.mainloop()
 
 ##########################################################################################################
 #                                           End Of function                                              #
@@ -438,7 +450,7 @@ For  variables, classes and functions it is best to use camelCase."""
 
     rarityCamel = Label(capitalTutorial, text="Most Common", bg="Goldenrod", height = 3,  width = 15)
     rarityCamel.grid(row=2, column = 0)
-    
+
     camelCase = Label(capitalTutorial, text=camelText,  bg=winColor)
     camelCase.grid(row=3, column = 0)
 
@@ -449,10 +461,10 @@ For  variables, classes and functions it is best to use camelCase."""
 
     rarityPascal = Label(capitalTutorial, text="Very common", bg="Turquoise", height = 3,  width = 15)
     rarityPascal.grid(row=5, column = 0)
-    
+
     PascalCase = Label(capitalTutorial, text=PascalText,  bg=winColor)
     PascalCase.grid(row=6, column = 0)
-    
+
 
     snake_Title = Label(capitalTutorial, text="snake_Case", font=titles,  bg=winColor)
     snake_Title.grid(row=7, column = 0)
@@ -461,7 +473,7 @@ For  variables, classes and functions it is best to use camelCase."""
 
     raritysnake_ = Label(capitalTutorial, text="somewhat used", bg="Bisque", height = 3,  width = 15)
     raritysnake_.grid(row=8, column = 0)
-    
+
     snake_Case = Label(capitalTutorial, text=snake_Text,  bg=winColor)
     snake_Case.grid(row=9, column = 0)
 
@@ -472,13 +484,13 @@ For  variables, classes and functions it is best to use camelCase."""
 
     raritykebab = Label(capitalTutorial, text="Almost never used", bg="White", height = 3,  width = 15)
     raritykebab.grid(row=11, column = 0)
-    
+
     kebabCase = Label(capitalTutorial, text=kebabText,  bg=winColor)
     kebabCase.grid(row=12, column = 0)
 
     capitalTutorial.configure(bg=winColor)
-    
-    if sys.platform == "win32" or sys.platform == "win64":
+
+    if sys.platform in ["win32", "win64"]:
         capitalTutorial.geometry("600x500")
     elif sys.platform == "linux":
         capitalTutorial.geometry("2000x1000")
@@ -493,15 +505,15 @@ def openPath(place):
         firstPathStep = str(pathlib.Path(__file__).parent.resolve())
         if "everycommand" not in firstPathStep:
             firstPathStep += "everycommand"
-                            
+
         filePath = firstPathStep + "\\File-projects"
         readFile(filePath, "Description.txt")
     elif place == "transparent":
         desiredPath = (str(pathlib.Path(__file__).parent.resolve()) + "\\File-projects\\IMG to Transparent\\Input")
-        subprocess.Popen(r'explorer /select,' + desiredPath)
+        subprocess.Popen(f'explorer /select,{desiredPath}')
     elif place == "bookReader":
         desiredPath = (str(pathlib.Path(__file__).parent.resolve()) + "\\File-projects\\BookReader\\bookreader.py")
-        subprocess.Popen(r'explorer /select,' + desiredPath)
+        subprocess.Popen(f'explorer /select,{desiredPath}')
 
 
 def dataBasedFilePage():
@@ -511,11 +523,11 @@ def dataBasedFilePage():
 there will be mostly file based programms that need a specific file/save outside of the code."""
     Information = Label(showData, text=UserKnowledge, bg="DarkOrchid")
     Information.grid(row=2, column=1, columnspan=4)
-    
+
     readMeButton = Button(showData, text="Read Me", command=lambda :openPath("readMe"),
                          height=10, width=15, bg="Purple")
     readMeButton.grid(row=3, column=0)
-    
+
 
     transparentImages = Button(showData, text="Image\nTransparent", command=lambda :openPath("transparent"),
                          height=10, width=15, bg="Purple")
@@ -524,16 +536,16 @@ there will be mostly file based programms that need a specific file/save outside
     bookReader = Button(showData, text="Book\nReader", command=lambda :openPath("bookReader"),
                          height=10, width=15, bg="Purple")
     bookReader.grid(row=3, column=2)
-    
 
-    
+
+
 
     showData.configure(bg="DarkOrchid")
     showData.title("File Projects")
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         showData.geometry("600x500")
     elif sys.platform == "linux":
-        showData.geometry("2000x1000")    
+        showData.geometry("2000x1000")
     showData.mainloop()
 
 #______________________________________Support______________________________________________________    
@@ -574,9 +586,9 @@ Good Luck to you """ + str(getpass.getuser())
     About = Button(Support, text="Programm issue", command=reinstall,
                    height=10, width=15, bg="Lime")
     About.grid(row=3, column=4)
-   
 
-    if sys.platform == "win32" or sys.platform == "win64":
+
+    if sys.platform in ["win32", "win64"]:
         Support.geometry("600x500")
     elif sys.platform == "linux":
         Support.geometry("2000x1000")
@@ -613,9 +625,8 @@ def createShowWindow():
 
 def regexSetup():
     Regex = Tk()
-
 #######################################Information############################################################
-    
+
     Information = Label(Regex, text="regex is a Module that finds\nspecific pattern into the text", bg="BurlyWood")
     Information.grid(row=1, column=1, columnspan=4)
 
@@ -628,7 +639,6 @@ def regexSetup():
                 "{2} will select 2 correct at a time\n\n" +
                 "at the end a code will look like that:\n" +
                 "[aeiou]*(hello){2}\n\nhere are some links:")
-
 #########################################Buttons########################################################
 
     cheatSet = Label(Regex, text=helptext, bg="BurlyWood")
@@ -651,7 +661,7 @@ def regexSetup():
     pythonRegex.grid(row=3, column=5) 
 
     Regex.configure(bg="BurlyWood")
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         Regex.geometry("600x500")
     elif sys.platform == "linux":
         Regex.geometry("2000x1000")
@@ -668,19 +678,19 @@ def openLink(link):
 ##########################################################################################################
     
 def showpyhton():
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         droppedFile = os.getcwd()
         lines = "\\"
         if "everycommand" not in droppedFile:
             droppedFile += "\\everycommand"
-        
+
     elif sys.platform == "linux":
         droppedFile = pathlib.Path(__file__).parent.resolve()
         lines = "/"
-        
+
     pathtofiles = str(droppedFile) + lines + "regex" + lines + "Regex.py"
 
-    if sys.platform == "win32" or sys.platform == "win64":
+    if sys.platform in ["win32", "win64"]:
         openpython(pathtofiles)
     elif sys.platform == "linux":
         android(pathtofiles)

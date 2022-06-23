@@ -14,10 +14,7 @@
 #now you can try removing the star
                  #\/ this small sign
 def addAllTogheter(*wholeCalcStuff):
-    allCombined = 0
-    for each in wholeCalcStuff:
-        allCombined += each
-    return(allCombined)
+    return sum(wholeCalcStuff)
 
 
 print(addAllTogheter(5, 6, 8, 9, 10, 23))
@@ -28,7 +25,7 @@ print(addAllTogheter(5, 6, 8, 9, 10, 23))
 
 def sayAllOut(**dictionnary):
     for first, second in dictionnary.items():
-        print(first, "contains " + second)
+        print(first, f"contains {second}")
 
         #  \/           \/          \/ same syntax as variables
 sayAllOut(a = "hi", b = "hello", c = "yo")
@@ -39,7 +36,7 @@ sayAllOut(a = "hi", b = "hello", c = "yo")
 #a arg and kwarg can be also used litterally in the other way too
 
 def takeThreeValue(one, two, three):
-    return(one + " then " + two + " then " + three)
+    return f"{one} then {two} then {three}"
 
 
 whatsIn = "this", "that", "this here"

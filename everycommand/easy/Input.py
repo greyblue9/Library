@@ -14,6 +14,6 @@ print(type(input("Random text here(its always a string): ")))
 print("your name is", name, "and you're", age, "years old")
 
 #option 2
-print("your name is " + name + " and you're " + str(age) + " years old")
+print(f"your name is {name}" + " and you're " + str(age) + " years old")
 
 #of course theres more but i dont think you'l ever ever gonna need em.

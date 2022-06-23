@@ -24,13 +24,13 @@ def encSave(keyNumber, operator):
     global save
     for i in save:
         wholeValue += chr(eval(str(ord(i)) + operator + str(keyNumber)))
-    save = wholeValue   
+    save = wholeValue
     if operator == "+":
-        Codex += chr(int("1" + str(keyNumber)))
+        Codex += chr(int(f"1{str(keyNumber)}"))
     elif operator == "-":
-        Codex += chr(int("2" + str(keyNumber)))
+        Codex += chr(int(f"2{str(keyNumber)}"))
     elif operator == "*":
-        Codex += chr(int("3" + str(keyNumber)))
+        Codex += chr(int(f"3{str(keyNumber)}"))
     wholeValue = ""
 
 #will read the user Entries
@@ -70,14 +70,14 @@ def decode():
     addBack = str(ord(value[len(value)-1]))
     divideBack = str(ord(value[len(value)-2]))
     substractBack = str(ord(value[len(value)-3]))
-    addBack = addBack[1:len(addBack)]
-    divideBack = divideBack[1:len(divideBack)]
-    substractBack = substractBack[1:len(substractBack)]
-    text = value[0:len(value)-3]
+    addBack = addBack[1:]
+    divideBack = divideBack[1:]
+    substractBack = substractBack[1:]
+    text = value[:len(value)-3]
     for letter in text:
         endWorth += (chr(int(((ord(letter) + int(addBack)) / int(divideBack)) - int(substractBack))))
     encoderField.delete(0, END)
-    encoderField.insert(0, str(endWorth))    
+    encoderField.insert(0, str(endWorth))
     endWorth = ""
     
 #Randomizes all 3 numbers in the key
